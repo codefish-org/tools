@@ -1,0 +1,43 @@
+<%= content_for :head do %>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+<% end %>
+<h1>Base64</h1>
+
+<p>
+  Base64 is a group of binary-to-text encoding schemes that represent binary data in an ASCII string format by
+  translating it into a radix-64 representation. The term Base64 originates from a specific
+  <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a>.
+  Each Base64 digit represents exactly 6 bits of data. Three 8-bit bytes (i.e., a total of 24 bits) can therefore be represented by four 6-bit Base64 digits.
+</p>
+<p>
+  Common to all binary-to-text encoding schemes, Base64 is designed to carry data stored in binary formats across
+  channels that only reliably support text content. Base64 is particularly prevalent on the World Wide Web where its
+  uses include the ability to embed image files or other binary assets inside textual assets such as HTML and CSS files.
+</p>
+
+<%= form_tag('/base64') do %>
+  <div class="form-group">
+    <%= label_tag :text, 'Text' %>
+    <%= text_area_tag :text, @text, rows: 5, escape: false, class: 'form-control' %>
+  </div>
+  <%= submit_tag 'Encode', class: 'btn btn-primary', data: { disable_with: 'Encoding' } %>
+  <%= icon('fas', 'info-circle', title: 'Encode text with Base64 encoding compliant with RFC 2045. Line feeds are added to every 60 encoded characters.', data: { toggle: :tooltip }) %>
+
+  <%= submit_tag 'Encode (strict)', class: 'btn btn-primary ml-4', data: { disable_with: 'Encoding (strict)' } %>
+  <%= icon('fas', 'info-circle', title: 'Encode text with Base64 encoding compliant with RFC 4648. No line feeds are added.', data: { toggle: :tooltip }) %>
+
+  <div class="form-group mt-3">
+    <%= label_tag :base64, 'Base64' %>
+    <%= text_area_tag :base64, @base64, rows: 5, escape: false, class: 'form-control' %>
+  </div>
+  <%= submit_tag 'Decode', class: 'btn btn-primary', data: { disable_with: 'Decoding' } %>
+  <%= icon('fas', 'info-circle', title: 'Decode with Base64 encoding compliant with RFC 2045. Characters outside the base alphabet are ignored.', data: { toggle: :tooltip }) %>
+
+  <%= submit_tag 'Decode (strict)', class: 'btn btn-primary ml-4', data: { disable_with: 'Decoding (strict)' } %>
+  <%= icon('fas', 'info-circle', title: 'Decode with Base64 encoding compliant with RFC 4648. An error message is given if value is incorrectly padded or contains non-alphabet characters. Note that CR or LF characters are also rejected.', data: { toggle: :tooltip }) %>
+
+<% end %>
